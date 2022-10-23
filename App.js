@@ -24,6 +24,7 @@ export default function App() {
       } finally {
         // Tell the application to render
         setFontLoaded(true);
+        console.log('Font true');
       }
     }
 
@@ -31,19 +32,22 @@ export default function App() {
   }, []);
 
   const onLayoutRootView = useCallback(async () => {
+    console.log('onLayoutRootView');
     if (fontLoaded) {
       // hideAsync - Hide the splash screen after resources are loaded
       await SplashScreen.hideAsync();
+      console.log('hideAsync');
     }
   }, [fontLoaded]);
 
   if (!fontLoaded) {
+    console.log('return null');
     return null;
   }
 
   return (
     // <View style={styles.container} onLayout={onLayoutRootView}>
-      <MealsNavigator style={styles.container} onLayout={onLayoutRootView} />
+        <MealsNavigator loadNavigationState={onLayoutRootView}/>
     // </View>
   );
 }
@@ -51,7 +55,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#ccc",
     alignItems: "center",
     justifyContent: "center",
   },
