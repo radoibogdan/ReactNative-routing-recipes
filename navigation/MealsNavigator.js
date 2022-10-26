@@ -4,7 +4,9 @@ import { createStackNavigator } from "react-navigation-stack";
 import CategoriesScreen from "../screens/CategoriesScreen";
 import CategoryMealsScreen from "../screens/CategoryMealsScreen";
 import MealDetailScreen from "../screens/MealDetailScreen";
+import FavoritesScreen from "../screens/FavoritesScreen";
 import Colors from "../constants/Colors";
+import { createBottomTabNavigator } from "react-navigation-tabs";
 
 const MealsNavigator = createStackNavigator(
   {
@@ -32,11 +34,10 @@ const MealsNavigator = createStackNavigator(
   }
 );
 
-export default createAppContainer(MealsNavigator);
+// We can nest multiple navigators
+const MealsFavTabNavigator = createBottomTabNavigator({
+  Meals: MealsNavigator,
+  Favorites: FavoritesScreen
+});
 
-/**
- * clean up
- * defaultNavigation options
- * mode: 'modal' => screen sliding from bottom
- * initialRouteName => Start Screen
- */
+export default createAppContainer(MealsFavTabNavigator);
